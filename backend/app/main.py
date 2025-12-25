@@ -53,7 +53,6 @@ app.add_middleware(
 
 app.add_middleware(RateLimitMiddleware)
 
-
 class MaxBodySizeMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         content_length = request.headers.get("content-length")

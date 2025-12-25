@@ -107,7 +107,7 @@ localhost:18089 → Frontend
 본 프로젝트는 백엔드 API 중심 과제로 설계되었습니다.
 React + Vite 기반 프론트엔드를 추가 구현하였으나,
 JCloud 포트포워딩 및 Docker 네트워크 환경 특성상
-외부 접속 환경에서 OAuth Redirect 및 API Proxy 경로가 안정적으로 연결되지 않는 문제가 확인되었습니다.
+외부 접속 환경에서 OAuth Redirect 및 API Proxy 경로가 안정적으로 연결되지 않는 문제가 확인되어 오류가 있을 수 있습니다.
 
 ### Backend API
 
@@ -122,6 +122,24 @@ JCloud 포트포워딩 및 Docker 네트워크 환경 특성상
 
 - 포스트맨
   https://documenter.getpostman.com/view/48959912/2sB3dSRpFS
+  
+  * 소셜 로그인 테스트 안내
+  
+  소셜 로그인(Kakao, Google Firebase)의 경우  
+  OAuth 특성상 브라우저 기반 Redirect가 필요합니다.
+  
+  본 프로젝트는 JCloud VM 환경에서
+  SSH 포트 포워딩을 통해 접근하므로,
+  Swagger UI 또는 Postman 환경에서
+  OAuth Redirect 흐름을 완전하게 재현하기에는
+  환경적 제약이 존재합니다.
+  
+  따라서 소셜 로그인 기능은
+  브라우저 환경에서 테스트가 가능합니다.
+  
+  소셜 로그인 관련 모든 API 엔드포인트,
+  토큰 발급 및 사용자 자동 가입 로직은
+  정상적으로 구현되어 있습니다.
 
 ### 로컬 실행
 

@@ -130,6 +130,10 @@ JCloud 포트포워딩 및 Docker 네트워크 환경 특성상
 
 - 포스트맨
   https://documenter.getpostman.com/view/48959912/2sB3dSRpFS
+
+- Postman 테스트 방법
+ Postman Collection(JSON)과 Environment(JSON)를 함께 import 후 테스트 가능합니다.
+
   
   * 소셜 로그인 테스트 안내
   

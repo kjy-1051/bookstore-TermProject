@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../firebase";
 import { login, register, logout, deleteMe } from "../api/auth";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import api from "../api/axios";   // ⭐ axios 인스턴스만 사용
 
 function Login() {
   const navigate = useNavigate();
@@ -44,17 +43,15 @@ function Login() {
       const result = await signInWithPopup(auth, googleProvider);
       const idToken = await result.user.getIdToken();
 
-      const res = await fetch(
-        `${API_BASE_URL}/auth/oauth/firebase/google`,
+      const { data } = await api.post(
+        "/auth/oauth/firebase/google",
+        {},
         {
-          method: "POST",
           headers: {
             Authorization: `Bearer ${idToken}`,
           },
         }
       );
-
-      const data = await res.json();
 
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("refresh_token", data.refresh_token);
@@ -69,7 +66,8 @@ function Login() {
 
   /* ===== Kakao 로그인 ===== */
   const handleKakaoLogin = () => {
-    window.location.href = `${API_BASE_URL}/auth/oauth/kakao/login`;
+    // ⭐ 반드시 백엔드 포트 (13089) 로 직접 이동
+    window.location.href = "http://localhost:13089/auth/oauth/kakao/login";
   };
 
   /* ===== 로그아웃 ===== */
@@ -149,4 +147,5 @@ function Login() {
 }
 
 export default Login;
+
 

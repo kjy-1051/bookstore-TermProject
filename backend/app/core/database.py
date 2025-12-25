@@ -5,11 +5,14 @@ from app.core.config import settings
 
 Base = declarative_base()
 
+DATABASE_URL = (
+    f"mysql+pymysql://{settings.DB_USER}:{settings.DB_PASSWORD}"
+    f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
+)
 
 engine = create_engine(
-    f"mysql+pymysql://{settings.DB_USER}:{settings.DB_PASSWORD}"
-    f"@127.0.0.1:{settings.DB_PORT}/{settings.DB_NAME}",
-    pool_pre_ping=True
+    DATABASE_URL,
+    pool_pre_ping=True,
 )
 
 SessionLocal = sessionmaker(
@@ -30,3 +33,4 @@ def get_db():
         yield db
     finally:
         db.close()
+

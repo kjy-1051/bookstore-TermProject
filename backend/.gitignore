@@ -1,0 +1,14 @@
+# python
+venv/
+__pycache__/
+*.pyc
+
+# env & secrets
+.env
+*.pem
+*.ppk
+
+# mac
+.DS_Store
+
+firebase-admin.json

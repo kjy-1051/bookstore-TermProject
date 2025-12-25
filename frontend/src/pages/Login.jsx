@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../firebase";
 import { login, register, logout, deleteMe } from "../api/auth";
-import api from "../api/axios";   // ⭐ axios 인스턴스만 사용
+import api from "../api/axios";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // ⭐ 추가
 
 function Login() {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ function Login() {
 
       const { data } = await api.post(
         "/auth/oauth/firebase/google",
-        {},
+        null,
         {
           headers: {
             Authorization: `Bearer ${idToken}`,
@@ -66,8 +68,8 @@ function Login() {
 
   /* ===== Kakao 로그인 ===== */
   const handleKakaoLogin = () => {
-    // ⭐ 반드시 백엔드 포트 (13089) 로 직접 이동
-    window.location.href = "http://localhost:13089/auth/oauth/kakao/login";
+    // ⭐ 링크만 수정
+    window.location.href = `${API_BASE_URL}/auth/oauth/kakao/login`;
   };
 
   /* ===== 로그아웃 ===== */
@@ -147,5 +149,6 @@ function Login() {
 }
 
 export default Login;
+
 
 

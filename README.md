@@ -6,13 +6,21 @@ JWT 기반 인증/인가(RBAC)를 사용하며, 도서·댓글·평점 관리 �
 Docker 기반 배포 및 Swagger / Postman을 통한 검증을 목표로 합니다.
 
 🧩 프로젝트 개요
+
 프로젝트 유형: 개인 Term Project
+
 주제: 온라인 서점(Bookstore) API
-핵심 목표
+
+핵심 목표:
+
 JWT 인증/인가 및 RBAC 구현
+
 소셜 로그인(Kakao, Firebase+Google) 구현
+
 RDB + Redis 연동
+
 Docker 기반 배포
+
 Swagger / Postman 기반 API 검증
 
 ## 🚀 주요 기능

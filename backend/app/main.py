@@ -51,7 +51,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.add_middleware(RateLimitMiddleware)
+"""app.add_middleware(RateLimitMiddleware)
 
 class MaxBodySizeMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
@@ -80,7 +80,7 @@ async def log_requests(request: Request, call_next):
         f"{response.status_code} "
         f"{duration:.3f}s"
     )
-    return response
+    return response """
 
 BUILD_TIME = datetime.now(timezone.utc)
 

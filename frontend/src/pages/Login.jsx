@@ -69,7 +69,7 @@ function Login() {
   /* ===== Kakao 로그인 ===== */
   const handleKakaoLogin = () => {
     // ⭐ 링크만 수정
-    window.location.href = `${VITE_API_BASE_URL}/auth/oauth/kakao/login`;
+    window.location.href = `${API_BASE_URL}/auth/oauth/kakao/login`;
   };
 
   /* ===== 로그아웃 ===== */

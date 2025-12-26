@@ -2,7 +2,7 @@ import api from "./axios";
 
 // 관리자 유저 목록
 export const fetchAdminUsers = (page = 1, size = 10) =>
-  api.get("/admin/users", { params: { page, size } })
+  api.get("/admin/users/", { params: { page, size } })
      .then((res) => res.data);
 
 // 관리자 유저 상세
@@ -27,10 +27,10 @@ export const updateUserRole = (userId, role) =>
 
 // 유저 댓글 조회
 export const fetchUserComments = (userId) =>
-  api.get(`/admin/users/${userId}/comments`)
+  api.get(`/admin/users/${userId}/comments/`)
      .then((res) => res.data);
 
 // 유저 평점 조회
 export const fetchUserRatings = (userId) =>
-  api.get(`/admin/users/${userId}/ratings`)
+  api.get(`/admin/users/${userId}/ratings/`)
      .then((res) => res.data);

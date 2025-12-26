@@ -1,7 +1,7 @@
 import api from "./axios";
 
 export const fetchBooks = async (page = 1, size = 10) => {
-  const res = await api.get("/books", {
+  const res = await api.get("/books/", {
     params: { page, size },
   });
   return res.data;
@@ -13,7 +13,7 @@ export const searchBooks = async ({
   page = 1,
   size = 9,
 }) => {
-  const res = await api.get("/books/search", {
+  const res = await api.get("/books/search/", {
     params: {
       keyword: keyword || undefined,
       category: category || undefined,
@@ -30,7 +30,7 @@ export const fetchBookDetail = async (id) => {
 };
 
 export const fetchLatestBooks = () =>
-  api.get("/books/latest").then(res => res.data);
+  api.get("/books/latest/").then(res => res.data);
 
 export const fetchBooksByPrice = ({
   minPrice,
@@ -40,7 +40,7 @@ export const fetchBooksByPrice = ({
   sort = "price,ASC",
 }) =>
   api
-    .get("/books/filter/price", {
+    .get("/books/filter/price/", {
       params: {
         min_price: minPrice,
         max_price: maxPrice,
@@ -52,10 +52,10 @@ export const fetchBooksByPrice = ({
     .then((res) => res.data);
 
 export const fetchPopularBooksByRatings = () =>
-  api.get("/books/popular/ratings").then(res => res.data);
+  api.get("/books/popular/ratings/").then(res => res.data);
 
 export const fetchPopularBooksByComments = () =>
-  api.get("/books/popular/comments").then(res => res.data);
+  api.get("/books/popular/comments/").then(res => res.data);
 
 export const fetchRandomBook = () =>
-  api.get("/books/recommend/random").then(res => res.data);
+  api.get("/books/recommend/random/").then(res => res.data);

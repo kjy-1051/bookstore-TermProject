@@ -33,8 +33,8 @@ services:
       - redis
     volumes:
       - ./backend/firebase-admin.json:/app/firebase-admin.json
-    ports:
-      - "13089:3000"
+    expose:
+      - "3000"          # 🔴 외부 노출 ❌, 프론트에서만 접근
     networks:
       - term_net
 
@@ -45,7 +45,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "18089:80"
+      - "80:80"      # 🔴 외부 접근 포트는 여기 하나만
     networks:
       - term_net
 

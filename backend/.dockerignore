@@ -1,0 +1,10 @@
+venv
+__pycache__
+.pytest_cache
+wheelhouse
+.env
+*.pem
+*.ppk
+.DS_Store
+node_modules
+dist

@@ -1,54 +1,39 @@
+from logging.config import fileConfig
+import os
+
+from sqlalchemy import pool, create_engine
+from alembic import context
+
 from app.core.database import Base
 
-from logging.config import fileConfig
-from sqlalchemy import pool
-
-from alembic import context
-# --- 반드시 추가 ---
+# models import (autogenerate용)
 from app.models.user import User
 from app.models.book import Book
 from app.models.comment import Comment
 from app.models.rating import Rating
 
-import os
-from sqlalchemy import create_engine
 
-
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
+# Alembic Config
 config = context.config
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = Base.metadata   # 🔥 ORM 모델 자동 감지
+target_metadata = Base.metadata
 
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
+
+def get_database_url():
+    return (
+        f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
+        f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT', '3306')}"
+        f"/{os.getenv('DB_NAME')}"
+    )
 
 
 def run_migrations_offline() -> None:
-    DB_USER = os.getenv("DB_USER")
-    DB_PASSWORD = os.getenv("DB_PASSWORD")
-    DB_HOST = os.getenv("DB_HOST")
-    DB_PORT = os.getenv("DB_PORT", "3306")
-    DB_NAME = os.getenv("DB_NAME")
-
-    DATABASE_URL = (
-        f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}"
-        f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    )
-
+    """Run migrations in offline mode."""
     context.configure(
-        url=DATABASE_URL,
+        url=get_database_url(),
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -59,19 +44,9 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    DB_USER = os.getenv("DB_USER")
-    DB_PASSWORD = os.getenv("DB_PASSWORD")
-    DB_HOST = os.getenv("DB_HOST")      # ← mysql
-    DB_PORT = os.getenv("DB_PORT", "3306")
-    DB_NAME = os.getenv("DB_NAME")
-
-    DATABASE_URL = (
-        f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}"
-        f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    )
-
+    """Run migrations in online mode."""
     connectable = create_engine(
-        DATABASE_URL,
+        get_database_url(),
         poolclass=pool.NullPool,
     )
 
@@ -83,6 +58,7 @@ def run_migrations_online() -> None:
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()

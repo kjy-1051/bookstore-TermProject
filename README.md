@@ -1,8 +1,8 @@
 
 # 📚 Bookstore API (FastAPI)
-FastAPI 기반 백엔드 애플리케이션입니다.
+FastAPI 기반 백엔드+프론트엔드 애플리케이션입니다.
 JWT 기반 인증/인가(RBAC)를 사용하며, 도서·댓글·평점 관리 및 관리자 전용 API를 제공합니다.
-본 프로젝트는 과제2를 바탕으로 한 백엔드 API중심 개인 과제로 설계되었으며,
+본 프로젝트는 과제2를 바탕으로 한 개인 과제로 설계되었으며,
 Docker 기반 배포 및 Swagger / Postman을 통한 검증을 목표로 합니다.
 
 🧩 프로젝트 개요
@@ -48,24 +48,10 @@ Firebase Authentication 기반 Google 로그인
 유저 관리
 통계 대시보드
 
-⚙️ 기타
-
-헬스체크 API (GET /health)
-입력값 검증 (Pydantic)
-통일된 JSON 에러 응답
-Swagger(OpenAPI) 자동 문서
-
 ## 🌐 배포 정보
 
 본 프로젝트는 JCloud VM 환경에 Docker 기반으로 배포되었습니다.
 
-⚠️ 접속 방식 안내 (중요)
-
-JCloud 환경 특성상 외부에서 특정 포트로의 직접 접근이 제한되어 있습니다.
-따라서 본 프로젝트는 서버 실행 후 SSH 포트 포워딩을 통해 API 서버에 접근하여 검증합니다.
-
-아래 SSH 명령을 통해 서버 접속 및 포트 포워딩을 설정한 뒤,
-로컬 환경에서 `localhost` 주소로 API에 접근할 수 있습니다.
 
 ▶️ 실행 방법 (Execution)
 
@@ -107,26 +93,16 @@ ssh -i <KEY_FILE>.pem -p 19089 \
   -L 18089:localhost:18089 \
   ubuntu@113.198.66.68
 
-localhost:13089 → FastAPI Backend
-localhost:18089 → Frontend
-
-### 🖥 Frontend 구현 관련 안내
-
-본 프로젝트는 백엔드 API 중심 과제로 설계되었습니다.
-React + Vite 기반 프론트엔드를 추가 구현하였으나,
-JCloud 포트포워딩 및 Docker 네트워크 환경 특성상
-외부 접속 환경에서 OAuth Redirect 및 API Proxy 경로가 안정적으로 연결되지 않는 문제가 확인되어 오류가 있을 수 있습니다.
-
 ### Backend API
 
-- Base URL  
-  http://localhost:13089
+- Base URL  (프론트엔드)
+  113.198.66.68:18089
 
 - Swagger UI  
-  http://localhost:13089/docs
+  http://113.198.66.68:18089/docs#/
 
 - Health Check  
-  http://localhost:13089/health
+  http://113.198.66.68:18089/health
 
 - 포스트맨
   https://documenter.getpostman.com/view/48959912/2sB3dSRpFS
@@ -136,22 +112,7 @@ JCloud 포트포워딩 및 Docker 네트워크 환경 특성상
 
   
   * 소셜 로그인 테스트 안내
-  
-  소셜 로그인(Kakao, Google Firebase)의 경우  
-  OAuth 특성상 브라우저 기반 Redirect가 필요합니다.
-  
-  본 프로젝트는 JCloud VM 환경에서
-  SSH 포트 포워딩을 통해 접근하므로,
-  Swagger UI 또는 Postman 환경에서
-  OAuth Redirect 흐름을 완전하게 재현하기에는
-  환경적 제약이 존재합니다.
-  
-  따라서 소셜 로그인 기능은
-  브라우저 환경에서 테스트가 가능합니다.
-  
-  소셜 로그인 관련 모든 API 엔드포인트,
-  토큰 발급 및 사용자 자동 가입 로직은
-  정상적으로 구현되어 있습니다.
+    소셜 로그인은 브라우저에서 테스트 가능합니다.
 
 ### 로컬 실행
 
@@ -176,9 +137,6 @@ python app/seed.py
 - 서버 실행
   
 uvicorn app.main:app --host 0.0.0.0 --port 8080
-
-Swagger UI: http://localhost:8080/docs
-Health Check: http://localhost:8080/health
 
 ## 환경변수 설명 (.env.example)
 
@@ -251,7 +209,6 @@ Firebase Admin SDK 서비스 계정 JSON 파일 경로
 
 CORS_ORIGINS=
 허용할 Origin 목록 (콤마로 구분)
-예: http://localhost:5173,http://localhost:18089
 
 ## 인증 플로우 설명
 
@@ -318,7 +275,3 @@ CORS_ORIGINS=
 - 통계 API 캐싱 최적화
   
 - 관리자 대시보드 지표 확장
-
-
-## ✅ 안내
- 반드시 SSH 포트 포워딩 후 Swagger UI를 기준으로 실행하여야 합니다.

@@ -4,7 +4,7 @@ FastAPI 기반 백엔드+프론트엔드 애플리케이션입니다.
 
 JWT 기반 인증/인가(RBAC)를 사용하며, 도서·댓글·평점 관리 및 관리자 전용 API를 제공합니다.
 
-본 프로젝트는 과제2를 바탕으로 한 개인 과제로 설계되었으며,Docker 기반 배포 및 Swagger / Postman을 통한 검증을 목표로 합니다.
+본 프로젝트는 과제2를 바탕으로 한 개인 과제로 설계되었으며,Docker 기반 배포 및 Swagger 를 통한 검증을 목표로 합니다.
 
 🧩 프로젝트 개요
 
@@ -66,7 +66,7 @@ Firebase Authentication 기반 Google 로그인
 
 백엔드(FastAPI), 데이터베이스(MySQL), 캐시(Redis), 프론트엔드(React)가 컨테이너로 구성되어 있습니다.
 
-### Backend API
+### API
 
 - Base URL  (프론트엔드)
   
@@ -79,17 +79,6 @@ Firebase Authentication 기반 Google 로그인
 - Health Check
   
   http://113.198.66.68:18089/health
-
-- 포스트맨
-  
-  https://documenter.getpostman.com/view/48959912/2sB3dSRpFS
-
-- Postman 테스트 방법
-  
- Postman Collection(JSON)과 Environment(JSON)를 함께 import 후 테스트 가능합니다.
-
-  * 소셜 로그인 테스트 안내
-    소셜 로그인은 브라우저에서 테스트 가능합니다.
 
 ### 실행 방법
 
